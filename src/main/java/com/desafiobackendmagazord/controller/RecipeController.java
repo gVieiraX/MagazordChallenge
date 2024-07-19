@@ -5,6 +5,7 @@ import com.desafiobackendmagazord.dto.RecipeDTO;
 import com.desafiobackendmagazord.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -28,7 +29,15 @@ public class RecipeController {
         List<Recipe> showRecipe = recipeService.showRecipe();
         return ResponseEntity.ok().body(showRecipe);
 
-
     }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") String id, @RequestBody RecipeDTO recipeDTO ){
+        Recipe recipe = this.recipeService.updateRecipe(id,recipeDTO);
+        return ResponseEntity.ok().body(recipe);
+    }
+
+
 
 }
