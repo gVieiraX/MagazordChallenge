@@ -64,4 +64,16 @@ public class RecipeService {
 
         }
     }
+
+    public Optional<Recipe> showRecipeById(String id) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+
+        if (optionalRecipe.isPresent()) {
+            recipeRepository.findById(id);
+            return optionalRecipe;
+        } else {
+            throw new RecipeNotFoundException(id);
+        }
+
+    }
 }
