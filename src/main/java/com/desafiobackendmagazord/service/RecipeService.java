@@ -5,16 +5,27 @@ import com.desafiobackendmagazord.dto.RecipeDTO;
 import com.desafiobackendmagazord.exceptions.RecipeNotFoundException;
 import com.desafiobackendmagazord.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.util.Assert.notNull;
 
 @Service
 public class RecipeService {
 
     @Autowired
     private RecipeRepository recipeRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
 
     public Recipe saveRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = new Recipe(recipeDTO);
@@ -31,18 +42,18 @@ public class RecipeService {
     public Recipe updateRecipe(String id, RecipeDTO recipeDTO) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
 
-        if(optionalRecipe.isPresent()){
+        if (optionalRecipe.isPresent()) {
             Recipe recipe = optionalRecipe.get();
 
-            if(recipeDTO.getTitle() !=null){
+            if (recipeDTO.getTitle() != null) {
                 recipe.setTitle(recipeDTO.getTitle());
             }
 
-            if(recipeDTO.getDescription() !=null){
+            if (recipeDTO.getDescription() != null) {
                 recipe.setDescription(recipeDTO.getDescription());
             }
 
-            if(recipeDTO.getIngredients() !=null){
+            if (recipeDTO.getIngredients() != null) {
                 recipe.setIngredients(recipeDTO.getIngredients());
             }
             return recipeRepository.save(recipe);
@@ -75,5 +86,9 @@ public class RecipeService {
             throw new RecipeNotFoundException(id);
         }
 
+    }
+
+    public List<Recipe> showRecipeByIngredient(String ingredients) {
+        return mongoTemplate.find(Query.query(Criteria.where("ingredients").is(ingredients)).with(Sort.by("title").ascending()), Recipe.class);
     }
 }

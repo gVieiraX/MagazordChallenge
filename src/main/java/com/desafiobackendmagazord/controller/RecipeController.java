@@ -49,4 +49,9 @@ public class RecipeController {
         return recipeService.showRecipeById(id);
     }
 
+    @GetMapping("/ingredient")
+    public List<Recipe> showRecipeByIngredient(@RequestParam String ingredients){
+        return recipeService.showRecipeByIngredient(ingredients);
+    }
+
 }
