@@ -27,12 +27,6 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
-    public List<Recipe> showRecipe(String title, String description, List<String> ingredients) {
-        Recipe recipe = new Recipe(title,description,ingredients);
-        this.recipeRepository.save(recipe);
-         return (List<Recipe>) recipe;
-
-    }
 
     public Recipe updateRecipe(String id, RecipeDTO recipeDTO) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
@@ -57,5 +51,17 @@ public class RecipeService {
             throw new RecipeNotFoundException(id);
         }
 
+    }
+
+    public String deleteRecipe(String id) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+
+        if (optionalRecipe.isPresent()) {
+            recipeRepository.deleteById(id);
+            return "Receita com id:" + id + " foi deletada com sucesso!";
+        } else {
+            return "Receita com id:" + id + " ,não foi encontrada.";
+
+        }
     }
 }

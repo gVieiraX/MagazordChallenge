@@ -38,6 +38,11 @@ public class RecipeController {
         return ResponseEntity.ok().body(recipe);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteRecipe(@PathVariable("id") String id){
+        return recipeService.deleteRecipe(id);
+    }
+
 
 
 }
