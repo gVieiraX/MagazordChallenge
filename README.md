@@ -97,11 +97,11 @@ Response Body
 }
 ```
 
-- DELETE /recites/{id} - Deleta receitas po id
+- DELETE /recipes/{id} - Deleta receitas po id
 ```
 Receita com id:66999fb2fb9c1d2a0e44073f foi deletada com sucesso!
 ```
-- GET /recipe/{id} - Mostra uma receita por id
+- GET /recipes/{id} - Mostra uma receita por id
 
 ```
 {
@@ -115,7 +115,7 @@ Receita com id:66999fb2fb9c1d2a0e44073f foi deletada com sucesso!
   ]
   
 ```
-- GET /recipe/ingredient - Lista as receitas que possuem determinado ingrediente.
+- GET /recipes/ingredient - Lista as receitas que possuem determinado ingrediente.
 - Ex: /recipes/ingredients?ingredient=ninho
 
 ```
@@ -130,7 +130,7 @@ Receita com id:66999fb2fb9c1d2a0e44073f foi deletada com sucesso!
     }
 ```
 
-- GET /recipe/search - Pesquisa de receitas por palavra pelos campos de title e description
+- GET /recipes/search - Pesquisa de receitas por palavra pelos campos de title e description
 - Ex: /recipe/search?search=choco
 ```
   {
@@ -144,7 +144,7 @@ Receita com id:66999fb2fb9c1d2a0e44073f foi deletada com sucesso!
   }
 
 ```
-- POST /recipe/{id}/comment - Adiciona um comentário em uma receita.
+- POST /recipes/{id}/comment - Adiciona um comentário em uma receita.
 
 Request body
 ```
@@ -155,18 +155,18 @@ Request body
 Response body
 ```
 {
-  "id": "669eeadf267bc94a41962ac1",
+  "commentId ": "669eeadf267bc94a41962ac1",
   "comment": "Muito gostoso!"
 }
 ```
-- PUT /recipe/{id}/comment/{commentId} - Atualiza  um comentário de uma receita
+- PUT /recipes/{id}/comment/{commentId} - Atualiza  um comentário de uma receita
 
 ```
   "comment": "Muito saboroso!"
 
 ```
 
-- DELETE /recipe/{id}/comment/{commentId} - Remove um comentário de uma receita.
+- DELETE /recipes/{id}/comment/{commentId} - Remove um comentário de uma receita.
 
 
 ```
